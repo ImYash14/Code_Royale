@@ -1,6 +1,6 @@
 # ⚔️ CodeRoyale: Real-Time Coding Battle Arena
 
-Welcome to **CodeRoyale** – a high-octane, real-time coding battle platform where developers from around the globe compete in algorithmic duels. Inspired by platforms like Chess.com and Clash Royale, CodeClash fuses competitive programming with live multiplayer excitement.
+Welcome to **CodeRoyale** – a high-octane, real-time coding battle platform where developers from around the globe compete in algorithmic duels. Inspired by platforms like Chess.com and Clash Royale, CodeRoyale fuses competitive programming with live multiplayer excitement.
 
 ---
 
