@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+  </head>
+  <body>
+    <h1>Coding Battle Game</h1>
+    <button id="loginBtn">Login with Google</button>
+    <h2>Welcome <span id="username"></span></h2>
+    <p>Email: <span id="email"></span></p>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup
+      } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD1C23ju5XhFbRjKFkRPZmtsvOAjLNqLdw",
+        authDomain: "codingbattlegame.firebaseapp.com",
+        projectId: "codingbattlegame",
+        storageBucket: "codingbattlegame.appspot.com",
+        messagingSenderId: "191382312190",
+        appId: "1:191382312190:web:c5c0c103ea8c87d3c801af",
+        measurementId: "G-JF8ECT6318"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+
+      const loginBtn = document.getElementById("loginBtn");
+
+      loginBtn.addEventListener("click", async () => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
+
+          // Show user info on the page
+          document.getElementById("username").textContent = user.displayName;
+          document.getElementById("email").textContent = user.email;
+
+          
+
+          // 🧠 Send token to backend
+          const token = await user.getIdToken();
+          const res = await fetch("http://localhost:3001/profile", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": token
+            }
+          });
+
+          const data = await res.json();
+          console.log("✅ Backend says:", data);
+        } catch (error) {
+          console.error("❌ Login failed:", error.message);
+        }
+      });
+    </script>
+  </body>
+</html>
